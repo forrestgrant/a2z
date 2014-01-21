@@ -49,6 +49,10 @@ module A2z
       
       def self.from_response(data)
         new.tap do |item|
+          if data.kind_of?(Array)
+            return data.map { |item| from_response(item) }
+          end
+          
           item.asin = data['ASIN']
           item.parent_asin = data['ParentASIN']
           item.detail_page_url = data['DetailPageURL']
